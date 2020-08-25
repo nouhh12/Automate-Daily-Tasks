@@ -5,12 +5,12 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 class Automation:
-    def weather(self):
-        #Opening chrome browser in icognito mode
-        options = webdriver.ChromeOptions()
-        options.add_argument("--incognito")
-        driver=webdriver.Chrome(options=options)
+    def music(self):
+        #Open Spotify app to play music
+        os.startfile("C:\\Users\\Nouh\\AppData\\Roaming\\Spotify\\Spotify.exe")
+        self.weather()
         
+    def weather(self):
         driver.get("https://www.google.com")
         #Change into English version of Google
         try:
@@ -36,11 +36,26 @@ class Automation:
         driver.find_element_by_id("speak_button_new").click()
         #Give time for the weather report to be fully read out
         time.sleep(10)
-        self.music()
+        self.email()
         
-    def music(self):
-        #Open Spotify app to play music
-        os.startfile("C:\\Users\\Nouh\\AppData\\Roaming\\Spotify\\Spotify.exe")    
+    def email(self):
+        #Insert your email and password for Microsoft Outlook
+        my_email=""
+        my_password=""
+        driver.get("https://outlook.live.com/owa/")
+        #Inserting email and password to sign in
+        driver.find_element_by_xpath("//a[@data-task='signin']").click()
+        driver.find_element_by_xpath("//input[@type='email']").send_keys(my_email)
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        driver.find_element_by_xpath("//input[@type='password']").send_keys(my_password)
+        #Time for page to fully load before clicking sign in button to access the Inbox
+        time.sleep(1)
+        driver.find_element_by_xpath("//input[@type='submit']").click()
+        
+#Opening chrome browser in icognito mode
+options = webdriver.ChromeOptions()
+options.add_argument("--incognito")
+driver=webdriver.Chrome(options=options)           
 #Run the script
 Automate=Automation()
-Automate.weather()
+Automate.music()

@@ -49,8 +49,12 @@ class Automation:
         driver.find_element_by_xpath("//input[@type='submit']").click()
         driver.find_element_by_xpath("//input[@type='password']").send_keys(my_password)
         #Time for page to fully load before clicking sign in button to access the Inbox
-        time.sleep(1)
-        driver.find_element_by_xpath("//input[@type='submit']").click()
+        while True:
+            try:
+                driver.find_element_by_xpath("//input[@type='submit']").click()
+                break
+            except:
+                print("page still hasn't loaded")
         
 #Opening chrome browser in icognito mode
 options = webdriver.ChromeOptions()

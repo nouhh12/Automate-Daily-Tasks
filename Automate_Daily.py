@@ -17,10 +17,11 @@ class Automation:
             driver.find_element_by_xpath("//*[@id='SIvCob']/a").click()
         except:
             'no need to change as Google is already in its English form'
-        
+        #Insert the city you want to check the weather in
+        desired_city="alexandria"
         #Search for weather in city and retrieve data from Google's top result
         search_bar=driver.find_element_by_xpath("//input[@title='Search']")
-        search_bar.send_keys("alexandria weather", Keys.ENTER)
+        search_bar.send_keys(desired_city+" weather", Keys.ENTER)
         temperature="Temperature is "+driver.find_element_by_id("wob_tm").text+" degrees Celsius"
         precipitation=" Precipitation is "+driver.find_element_by_id("wob_pp").text
         humidity=" Humidity is "+driver.find_element_by_id("wob_hm").text

@@ -26,7 +26,7 @@ class Automation:
         precipitation=" Precipitation is "+driver.find_element_by_id("wob_pp").text
         humidity=" Humidity is "+driver.find_element_by_id("wob_hm").text
         wind=" Wind speed is "+driver.find_element_by_id("wob_ws").text
-        
+
         full_temperature=temperature+precipitation+humidity+wind
         
         #Opening text reader to play the weather report out loud
@@ -35,8 +35,10 @@ class Automation:
         text_box.clear()
         text_box.send_keys(full_temperature)
         driver.find_element_by_id("speak_button_new").click()
-        #Give time for the weather report to be fully read out
-        time.sleep(10)
+        word_count=len(full_temperature.split())
+        #Give time for the weather report to be fully read out by dividing the word count by 5, 
+        #given that the average speed for reading out loud is 5 words per second
+        time.sleep(word_count/5)
         self.email()
         
     def email(self):
@@ -65,6 +67,7 @@ class Automation:
         #Time for page to fully load before reading emails from the Inbox
         while True:
             try:
+                #To find all the emails in the inbox
                 recieved_mail=driver.find_elements_by_xpath("//div[starts-with(@id,'AQAAAW')]")
                 break
             except:
@@ -72,20 +75,25 @@ class Automation:
         read_out=[]
         for i in range(5):
             try:
+                #Print() is used to check whether the email contains any non english letters or not
                 print(recieved_mail[i].get_attribute('aria-label'))
                 read_out.append(recieved_mail[i].get_attribute('aria-label'))
             except:
                 print("Contains non english letters")
         #Opening text reader to play the received emails out loud
         driver.get("https://ttsreader.com/")
+        
         for j in range(len(read_out)):
-            print(read_out[j])
+            print("Words count: ",len(read_out[j].split()))
             text_box=driver.find_element_by_id("text_box")
             text_box.clear()
             text_box.send_keys(read_out[j])
             driver.find_element_by_id("speak_button_new").click()
-            #Give time for each email to be fully read out
-            time.sleep(10)
+            #Number of words in each email
+            word_count=len(read_out[j].split())
+            #Give time for each email to be fully read out by dividing the word count by 5, 
+            #given that the average speed for reading out loud is 5 words per second
+            time.sleep(word_count/5)
         
 #Opening chrome browser in icognito mode
 options = webdriver.ChromeOptions()

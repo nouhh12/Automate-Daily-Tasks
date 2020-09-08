@@ -59,7 +59,7 @@ class Automation:
                 break
             except:
                 print("Log-in page still hasn't loaded")
-        #To choose no when asked whether to stay signed in with this email or not
+        #To choose no when asked whether to always stay signed in with this email or not
         try:
             driver.find_element_by_id("idBtn_Back").click()
         except:
@@ -71,20 +71,19 @@ class Automation:
                 recieved_mail=driver.find_elements_by_xpath("//div[starts-with(@id,'AQAAAW')]")
                 break
             except:
-                print("Inbox still hasn't loaded")
+                "Inbox still hasn't loaded"
         read_out=[]
-        for i in range(5):
+        for i in range(10):
             try:
                 #Print() is used to check whether the email contains any non english letters or not
                 print(recieved_mail[i].get_attribute('aria-label'))
                 read_out.append(recieved_mail[i].get_attribute('aria-label'))
             except:
-                print("Contains non english letters")
+                "Contains non english letters"
         #Opening text reader to play the received emails out loud
         driver.get("https://ttsreader.com/")
         
         for j in range(len(read_out)):
-            print("Words count: ",len(read_out[j].split()))
             text_box=driver.find_element_by_id("text_box")
             text_box.clear()
             text_box.send_keys(read_out[j])

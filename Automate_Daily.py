@@ -8,6 +8,7 @@ class Automation:
     def music(self):
         #Open Spotify app to play music
         os.startfile("C:\\Users\\Nouh\\AppData\\Roaming\\Spotify\\Spotify.exe")
+        #Go to the next step which is the audible weather report
         self.weather()
         
     def weather(self):
@@ -39,6 +40,7 @@ class Automation:
         #Give time for the weather report to be fully read out by dividing the word count by 5, 
         #given that the average speed for reading out loud is 5 words per second
         time.sleep(word_count/5)
+        #Go to the final step which is reading the emails out loud
         self.email()
         
     def email(self):
@@ -95,6 +97,7 @@ class Automation:
             time.sleep(word_count/5)
         
 #Opening chrome browser in icognito mode
+#Incognito mode is used to prevent the script from affecting my normal browser cookies
 options = webdriver.ChromeOptions()
 options.add_argument("--incognito")
 driver=webdriver.Chrome(options=options)           

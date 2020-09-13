@@ -55,6 +55,7 @@ class Automation:
         driver.find_element_by_xpath("//input[@type='submit']").click()
         driver.find_element_by_xpath("//input[@type='password']").send_keys(my_password)
         #Time for page to fully load before clicking sign in button to access the Inbox
+        #try/except is used here instead of time.sleep() to optimize speed
         while True:
             try:
                 driver.find_element_by_xpath("//input[@type='submit']").click()
@@ -67,6 +68,7 @@ class Automation:
         except:
             "user was not prompted with the question"
         #Time for page to fully load before reading emails from the Inbox
+        #try/except is used here instead of time.sleep() to optimize speed
         while True:
             try:
                 #To find all the emails in the inbox
